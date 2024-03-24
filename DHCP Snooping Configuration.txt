@@ -1,0 +1,42 @@
+**R1 
+en 
+config t
+hostname R1
+int g0/0
+ip add 192.168.1.1 255.255.255.0
+no shut 
+exit
+do wr
+
+**S1
+en 
+config t
+hostname S1
+ip dhcp snooping
+int range f0/23-24
+ip dhcp snooping trust 
+ip dhcp snooping vlan 1
+exit
+do wr
+
+**DHCP SERVER 
+IP ADD: 192.168.1.100
+SUBNET: 255.255.255.0
+DEFAULT: 192.168.1.1
+
+DHCP POOL 
+POOL NAME: RealPool
+DEFAULT G: 192.168.1.1
+START IP: 192.168.1.5
+SUBNET M: 255.255.255.0
+
+**FAKE DHCP SERVER
+IP ADD: 192.168.1.100
+SUBNET: 255.255.255.0
+DEFAULT: 192.168.1.1
+
+DHCP POOL 
+POOL NAME: FakePool
+DEFAULT G: 192.168.1.1
+START IP: 192.168.1.10
+SUBNET M: 255.255.255.0
